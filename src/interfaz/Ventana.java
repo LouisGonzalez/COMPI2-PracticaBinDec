@@ -42,6 +42,15 @@ public class Ventana extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        txtBin.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBinKeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBinKeyPressed(evt);
+            }
+        });
+
         btnConvertir.setText("Convertir");
         btnConvertir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,13 +102,25 @@ public class Ventana extends javax.swing.JFrame {
     private void btnConvertirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConvertirActionPerformed
         AnalizadorLexico lexico = new AnalizadorLexico(new StringReader(txtBin.getText()));
         try {
-            new Sintax(lexico).parse();
+            new Sintax(lexico, txtDec).parse();
         } catch (Exception ex) {
             Logger.getLogger(Ventana.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnConvertirActionPerformed
 
-  
+    private void txtBinKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBinKeyPressed
+    }//GEN-LAST:event_txtBinKeyPressed
+
+    private void txtBinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBinKeyTyped
+        char valor = evt.getKeyChar();
+        if (valor != '.') {
+            if (valor < '0' || valor > '1') {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtBinKeyTyped
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnConvertir;
     private javax.swing.JLabel lblBin;

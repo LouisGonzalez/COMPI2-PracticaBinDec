@@ -65,6 +65,10 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="txtBin">
+      <Events>
+        <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBinKeyTyped"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBinKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDec">
     </Component>
