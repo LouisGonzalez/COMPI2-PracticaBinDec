@@ -1,0 +1,41 @@
+package gramatica;
+import java_cup.runtime.Symbol;
+import principal.main;
+
+parser code {:
+    
+    public int contDecimal = -1;
+
+    public Sintax(AnalizadorLexico lex){
+        super(lex);
+    }
+
+    public void setAccion(String tipo, String mensaje, String accion){
+        System.out.println(tipo+" "+mensaje);
+    }
+
+    public void syntax_error(Symbol s){
+        setAccion("ERROR", "Error sintaxis columna: "+s.right+" fila: "+s.left,"");
+    }
+
+:}
+
+
+    terminal BIN, PUNTO, ERRO;
+    
+    non terminal a;
+
+    non terminal Double b, val, val2;
+
+    a ::= b:a {: System.out.println("El valor es: "+a); :}
+;
+    b ::= val:a PUNTO val2:b {: RESULT = a + b;  :}
+    | val:a {: RESULT=a; :}
+;
+    val ::= val:a BIN:b {: RESULT = a * 2 + Double.parseDouble(b.toString());  :}
+    | BIN:a  {: RESULT = Double.parseDouble(a.toString()); :}
+;
+    val2 ::= val2:a BIN:b {: double elevacion = Math.pow(2, parser.contDecimal); parser.contDecimal--; RESULT = a + Double.parseDouble(b.toString()) * elevacion;  :}
+    | BIN:a {: double elevacion = Math.pow(2, parser.contDecimal); parser.contDecimal--; RESULT = Double.parseDouble(a.toString()) * elevacion; :}
+;
+    
